@@ -1,11 +1,16 @@
 #include <stdio.h>
 typedef enum { false, true} bool;
 int my_strtoi(char* s, int base);
-int concatenate(unsigned int x, unsigned int y, unsigned int pow);
+int concatenate(unsigned int x, unsigned int y, unsigned int base);
 
 int main(int argc, char* argv[])
 {
-	my_strtoi(argv[1], 10);
+	if (argc < 2)
+	{
+		printf("Error: No cstring argument was given");
+		return 0;
+	}
+	my_strtoi(argv[1], 10); /* Run function with Base 10 */
 }
 
 int my_strtoi(char* s, int base) 
@@ -15,13 +20,13 @@ int my_strtoi(char* s, int base)
 	{
 		res = concatenate(res, s[i] - '0', base);
 	}
-	printf("%i", res);
+	printf("%i", res); /* For testing, can be removed */
 	return res;
 }
 
-int concatenate(unsigned int x, unsigned int y, unsigned int pow)
+int concatenate(unsigned int x, unsigned int y, unsigned int base)
 {
-	while(y >= pow)
-        	pow *= pow;
-	return x * pow + y;        
+	while(y >= base) /* Check y against our base to understand how much to multiply x by */
+        	base *= base;
+	return x * base + y;        
 }
